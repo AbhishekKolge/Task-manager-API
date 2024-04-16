@@ -1,20 +1,33 @@
-require("dotenv").config();
-const express = require("express");
-const morgan = require("morgan");
+require('dotenv').config();
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
 
-const connectDB = require("./db/connect");
-const notFound = require("./middleware/not-found");
-const errorHandler = require("./middleware/error-handler");
-const tasks = require("./routes/tasks");
+const connectDB = require('./db/connect');
+const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
+const tasks = require('./routes/tasks');
 
 const app = express();
-
+app.options(
+  '*',
+  cors({
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
+);
 //middleware
+app.use(
+  cors({
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
-app.use(morgan("tiny"));
+app.use(morgan('tiny'));
 
 //routes
-app.use("/api/v1/tasks", tasks);
+app.use('/api/v1/tasks', tasks);
 
 //not found middleware
 app.use(notFound);
