@@ -9,13 +9,6 @@ const errorHandler = require('./middleware/error-handler');
 const tasks = require('./routes/tasks');
 
 const app = express();
-app.options(
-  '*',
-  cors({
-    origin: '*',
-    optionsSuccessStatus: 200,
-  })
-);
 //middleware
 app.use(
   cors({
